@@ -1,5 +1,6 @@
 import os.path
 import random
+# from PIL import Image, ImageFont, ImageDraw, ImageFilter
 from PIL import Image, ImageFont, ImageDraw, ImageFilter
 
 try:

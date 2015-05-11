@@ -4,6 +4,7 @@ import time
 import functools
 import threading
 import tornado.web, tornado.httputil, tornado.escape
+from tornado import gen
 # import sqlite3
 
 import pymongo
@@ -26,12 +27,15 @@ from app.model.alogs import AlogsModel
 from app.model.confs import ConfsModel
 from app.model.posts import PostsModel
 
+
 class BasicCtrl(tornado.web.RequestHandler):
     def initialize(self):
         self._storage = {'model': {}, 'dbase': {}, }
+
     def on_finish(self):
-        for dbase in self._storage['dbase']:
-            self._storage['dbase'][dbase].close()
+        pass
+        # for dbase in self._storage['dbase']:
+        #     self._storage['dbase'][dbase].close()
 
     def set_default_headers(self):
         self.clear_header('server')
@@ -168,6 +172,9 @@ class BasicCtrl(tornado.web.RequestHandler):
         if name not in self._storage['model']:
             self._storage['model'][name] = globals()[name]()
         return self._storage['model'][name]
+
+    # def write_error(self, status_code, **kwargs):
+
 
 def alive(method):
     """Decorate methods with this to require that the user be logged in.
